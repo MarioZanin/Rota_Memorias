@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Logout - Rota das Memórias</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="../imagens/Logo.JPG" alt="Logo Rota das Memórias">       
+        </div>
+        <div class="header-content">
+            <h1>Rota das Memórias</h1>
+        </div>
+    </header>
+    <main>
+        <h1>Logout</h1>
+        <p>Você saiu com sucesso. Esperamos vê-lo novamente em breve.</p>
+        <button onclick="redirectToLogin()">Login</button>
+    </main>
+    <footer>
+        <br>
+        <button onclick="window.location.href = 'index.html'">Página Inicial</button>
+        <br>
+        <br>
+    </footer>
+<script>
+    function redirectToLogin() {
+        window.location.href = 'login.html';  // Redireciona para a página de login
+    }
+
+    // Chamada para o backend para realizar o logout
+    function performLogout() {
+        fetch('/api/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Logout realizado com sucesso.');
+            } else {
+                console.error('Falha ao realizar o logout.');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    }
+
+    // Executa o logout ao carregar a página
+    document.addEventListener('DOMContentLoaded', (event) => {
+        performLogout();
+    });
+</script>
+</body>
+</html>

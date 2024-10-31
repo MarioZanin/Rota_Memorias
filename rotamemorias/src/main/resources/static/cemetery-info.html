@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Informações do Cemitério</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="../imagens/Logo.JPG" alt="Logo Rota das Memórias">       
+        </div>
+        <div class="header-content">
+            <h1>Rota das Memórias</h1>
+            <div class="header-buttons">
+                <!-- Botões de funcionalidades -->
+                <button id="deceased-button" onclick="deceasedResult()">Localização da Campa</button>
+                <button id="condolences-button" onclick="condolencesResult()">Deixar Condolências</button>
+                <button id="back-button" onclick="window.location.href = 'messages.html'">Ver Condolência</button>
+                <button onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h1>Localização do Cemitério</h1>
+    </main>
+    <aside class="container">
+        <div id="search-results" class="cemitery-container">
+            <h2 id="cemeteryName"><strong></strong></h2>  
+            <p id="cemeteryAddress"></p>
+        </div>
+        <img id="cemeteryImageResult" src="" alt="localização do Cemitério" class="result-image">
+    </aside>
+    <footer>
+        <button id="back-button" onclick="window.location.href = 'search.html'">Voltar</button>
+    </footer>
+    <script src="../static/javascript/script.js"></script>
+    <script>
+        // Função para buscar informações do cemitério
+        function fetchCemeteryInfo() {
+            const cemeteryId = /* Obter o ID do cemitério conforme necessário */
+            fetch(`/api/cemiterio/${cemeteryId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('cemeteryName').textContent = data.nome;
+                    document.getElementById('cemeteryAddress').innerHTML = `Endereço: ${data.rua}, ${data.numero} - Bairro: ${data.bairro} <br>Cidade: ${data.cidade} - Estado: ${data.estado}`;
+                    document.getElementById('cemeteryImageResult').src = data.foto;
+                })
+                .catch(error => console.error('Erro:', error));
+        }
+
+        fetchCemeteryInfo();
+    </script>
+</body>
+</html>

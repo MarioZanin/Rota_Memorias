@@ -1,0 +1,236 @@
+body, html {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+/* Estilos para o cabeçalho */
+.header {
+    background-image:url('../imagens/forest.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+}
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.header-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* Espaçamento entre os botões */
+}
+.header-buttons button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 0.1rem;
+}
+.button-container {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+}
+.button-container button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+/* Estilos para o conteúdo principal */
+main {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0.2rem;
+    text-align: center;
+    background-color: #1EEDFA;
+}
+/* Estilos para a barra lateral */
+aside {
+    max-width: 100%;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: #1EEDFA;
+    align-items: center;
+    justify-items: center;
+    padding: 0.2rem;
+}
+/* Estilos para o rodapé */
+footer {
+    text-align: center;
+    padding: 10px;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    background-color: #1EEDFA;
+    align-items: center;
+    justify-items: center;
+}
+/* Estilos para as fotos */
+#deceasedPhoto{
+   max-width: 80%; /* Aumentando a largura máxima das fotos para 60% */
+    max-height: 600px; /* Aumentando a altura máxima das fotos */
+    float: left; /* Fazendo as fotos flutuarem para a esquerda */
+    margin-right: 20px; /* Adicionando uma margem à direita para separar as fotos das informações */
+}
+#cemeteryPhoto {
+    max-width: 40%; /* Aumentando a largura máxima das fotos para 60% */
+    max-height: 400px; /* Aumentando a altura máxima das fotos */
+    float: left; /* Fazendo as fotos flutuarem para a esquerda */
+    margin-right: 20px; /* Adicionando uma margem à direita para separar as fotos das informações */
+}
+/* Seções de informações */
+.deceased-info,
+.cemetery-info {
+    width: calc(60% - 20px); /* Definindo a largura das informações para ocupar 40% do container, descontando a margem da foto */
+    float: left; /* Fazendo as informações flutuarem para a esquerda */
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+/* Estilos para seções de pesquisa e resultados */
+.search-options,
+.search-results,
+.result-content {
+    margin-bottom: 2rem;
+    padding: 10px;
+    text-align: center;
+    max-width: 700px;
+    width: 80%;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+#lastMessages {
+    margin-bottom: 2rem;
+    padding: 20px;
+    text-align: center;
+    display: block;
+}
+.message {
+    text-align: center;
+}
+.message p {
+    margin: 10px 0;
+}
+.result-container {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-top: 5px;
+}
+.result-box,
+.result-photo,
+.result-text {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 100%;
+}
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+input,
+textarea {
+    width: 80%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.logo img {
+    border-radius: 30px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.logo {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+}
+/* Estilos para o botão */
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+/* Container principal */
+.container {
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1EEDFA;
+    padding: 0.5rem;
+}
+.container .date-section {
+    margin-bottom: 1rem;
+    padding: 5px;
+    text-align: left;
+    width: calc(100% - 20px); /* Definindo a largura total das seções de resultados, descontando a margem */
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 100%;
+}
+.container .result-image {
+    max-width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+    margin: 0 auto;
+}
+.date-section {
+    width: 100%;
+    overflow: hidden; /* Evita que os elementos dentro das seções se sobreponham */
+    margin-bottom: 20px; /* Adicionando uma margem entre as seções */
+}
+#condolencesMessages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.messages-container p {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: left;
+}
+.cemitery-container p {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+} 

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Rota das Memórias</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="../imagens/Logo.JPG" alt="Logo Rota das Memórias">
+        </div>
+        <div class="header-content">
+            <h1>Rota das Memórias</h1>
+            <div class="header-buttons">
+                <!-- Botões de funcionalidades -->
+                <button id="condolences-button" onclick="condolencesResult()">Deixar Condolências</button>
+                <button id="back-button" onclick="window.location.href = 'messages.html'">Ver Condolência</button>
+                <button onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h1>Resultado da Busca</h1>
+        <button id="back-button" onclick="window.location.href = 'index.html'">Nova Pesquisa</button>
+    </main>
+    <aside class="container">
+        <div id="search-results">
+            <div class="date-section">
+                <!-- Exibição da foto do falecido -->
+                <img id="deceasedPhoto" src="" alt="Foto do Falecido" class="result-photo">
+                <!-- Informações do falecido -->
+                <div class="deceased-info">
+                    <strong id="deceasedName"></strong> 
+                    <p id="deceasedDetails"></p>
+                    <button id="deceased-button" onclick="deceasedResult()">Localização da Campa</button>
+                </div>
+            </div>
+            <div class="date-section">
+                <!-- Exibição da foto da fachada do cemitério -->
+                <img id="cemeteryPhoto" src="" alt="Fachada do Cemitério" class="result-image">
+                <!-- Informações do cemitério -->
+                <div class="cemetery-info">
+                    <strong id="cemeteryName"></strong>
+                    <p id="cemeteryDetails"></p>
+                    <button id="cemetery-button" onclick="cemeteryResult()">Localização do Cemitério</button> 
+                </div>
+            </div>
+        </div>
+    </aside>
+    <footer>
+        <br><br><br>
+    </footer>
+    <script src="../static/javascript/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            loadSearchResults();
+        });
+
+        function loadSearchResults() {
+            const searchParams = new URLSearchParams(window.location.search);
+            const deceasedName = searchParams.get('deceasedName');
+            const cemeteryName = searchParams.get('cemeteryName');
+            const deathDate = searchParams.get('deathDate');
+            const motherName = searchParams.get('motherName');
+
+            // Fazendo a busca com base nos parâmetros passados pela URL
+            fetch(`/api/falecido?nome=${deceasedName}&cemiterio=${cemeteryName}&dataFalecimento=${deathDate}&nomeMae=${motherName}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        // Exibe os resultados para cada falecido encontrado
+                        data.forEach(falecido => {
+                            document.getElementById('deceasedPhoto').src = falecido.foto || '../imagens/Pessoa.jpg';
+                            document.getElementById('deceasedName').innerText = falecido.nome;
+                            document.getElementById('deceasedDetails').innerHTML = `
+                                Pai: ${falecido.pai}<br>
+                                Mãe: ${falecido.mae}<br>
+                                Data de Nascimento: ${falecido.dataNascimento}<br>
+                                Data de Falecimento: ${falecido.dataFalecimento}<br>
+                                <strong>Localização da Campa:</strong><br>
+                                Rua: ${falecido.rua}, Quadra: ${falecido.quadra}, Campa: ${falecido.campa}
+                            `;
+
+                            // Carrega as informações do cemitério
+                            fetch(`/api/cemiterio/${falecido.cemiterioId}`)
+                                .then(response => response.json())
+                                .then(cemeteryData => {
+                                    document.getElementById('cemeteryPhoto').src = cemeteryData.foto || '../imagens/PaquetáFrente.jpg';
+                                    document.getElementById('cemeteryName').innerText = cemeteryData.nome;
+                                    document.getElementById('cemeteryDetails').innerHTML = `
+                                        Endereço: ${cemeteryData.endereco}<br>
+                                        Bairro: ${cemeteryData.bairro}<br>
+                                        Cidade: ${cemeteryData.cidade} - Estado: ${cemeteryData.estado}<br>
+                                        <strong>Horário de Funcionamento:</strong><br>
+                                        ${cemeteryData.horarioFuncionamento}<br>
+                                        <strong>Telefone:</strong> ${cemeteryData.telefone}<br>
+                                        <strong>Página Oficial:</strong> <a href="${cemeteryData.paginaOficial}">${cemeteryData.paginaOficial}</a>
+                                    `;
+                                })
+                                .catch(error => {
+                                    console.error('Erro ao carregar as informações do cemitério:', error);
+                                });
+                        });
+                    } else {
+                        document.getElementById('search-results').innerHTML = '<p>Nenhum resultado encontrado.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar os falecidos:', error);
+                    document.getElementById('search-results').innerHTML = '<p>Erro ao buscar os resultados. Tente novamente mais tarde.</p>';
+                });
+        }
+    </script>
+</body>
+</html>

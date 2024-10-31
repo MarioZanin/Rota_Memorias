@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Rota das Memórias</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="../imagens/Logo.JPG" alt="Logo Rota das Memórias">
+        </div>
+        <div class="header-content">
+            <h1>Rota das Memórias</h1>
+            <div class="header-buttons">
+                <button onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <br>
+        <h1>Consultar</h1>
+        <br>
+        <div id="results"></div>
+    </main>
+    <aside class="container">
+        <div class="search-options">
+            <form id="search-form" action="search.html" method="get">
+                <br>
+                <div>
+                    <label for="deceasedName">Nome do Falecido:</label>
+                    <input type="text" id="deceasedName" name="deceasedName" size="30" maxlength="150" required placeholder="*Obrigatório">
+                </div>
+                <br>
+                <div>
+                    <label for="cemeteryName">Nome do Cemitério:</label>
+                    <input type="text" id="cemeteryName" name="cemeteryName" size="30" maxlength="150">
+                </div>
+                <br>
+                <div>
+                    <label for="deathDate">Data de Falecimento:</label>
+                    <input type="date" id="deathofDate" name="deathDate" size="30">
+                </div>
+                <br>
+                <div>
+                    <label for="motherName">Nome da Mãe:</label>
+                    <input type="text" id="motherName" name="motherName" size="30" maxlength="150">
+                </div>
+                <br>
+                <button type="submit">Buscar</button>
+                <br>
+            </form>
+        </div>
+    </aside>
+    <footer>
+      <br>
+        <h4>Bem-vindo à Rota das Memórias - Um lugar para honrar e lembrar aqueles que amamos.</h4>
+    <br>
+    </footer>
+    <script src="../static/javascript/script.js"></script>
+    <script>
+        document.getElementById('deceasedName').addEventListener('input', function(event) {
+            if (/\d/.test(this.value)) {
+                this.value = this.value.replace(/\d/g, '');
+            }
+        });
+        document.getElementById('cemeteryName').addEventListener('input', function(event) {
+            if (/\d/.test(this.value)) {
+                this.value = this.value.replace(/\d/g, '');
+            }
+        });
+        document.getElementById('motherName').addEventListener('input', function(event) {
+            if (/\d/.test(this.value)) {
+                this.value = this.value.replace(/\d/g, '');
+            }
+        });
+
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        const deathDateInput = document.getElementById('deathofDate');
+        const currentDate = new Date();
+        const maxDate = formatDate(currentDate);
+        deathDateInput.setAttribute('max', maxDate);
+    </script>
+</body>
+</html>
