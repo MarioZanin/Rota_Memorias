@@ -16,45 +16,30 @@
         </div>
     </header>
     <main>
-        <h1>Logout</h1>
-        <p>Você saiu com sucesso. Esperamos vê-lo novamente em breve.</p>
-        <button onclick="redirectToLogin()">Login</button>
+        <aside class="container">
+          <h1>Você saiu com sucesso. Esperamos vê-lo novamente em breve.</h1>
+             <div class="message">
+            <br>
+                <h1>Obrigado por utilizar a Rota das Memórias!</h1>
+            <br>
+                <h3>Esperamos que tenha tido uma experiência positiva.</h3>
+            <br>
+                <h3>Que as memórias preciosas e felizes que vocês criaram tragam conforto ao seu coração.</h3>
+            <br>
+                <h3>Continue a sua jornada com esperança e positividade!</h3>
+            <br>
+            </div>
+            <button onclick="window.location.href = 'index.html'">Página Inicial</button>
+        <!--<button onclick="redirectToLogin()">Login</button>-->
+        </aside>
     </main>
     <footer>
-        <br>
-        <button onclick="window.location.href = 'index.html'">Página Inicial</button>
-        <br>
-        <br>
+        <h1>Você será redirecionado em breve.</h1>
     </footer>
 <script>
-    function redirectToLogin() {
-        window.location.href = 'login.html';  // Redireciona para a página de login
-    }
-
-    // Chamada para o backend para realizar o logout
-    function performLogout() {
-        fetch('/api/logout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Logout realizado com sucesso.');
-            } else {
-                console.error('Falha ao realizar o logout.');
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-        });
-    }
-
-    // Executa o logout ao carregar a página
-    document.addEventListener('DOMContentLoaded', (event) => {
-        performLogout();
-    });
+    setTimeout(function() {
+            window.location.href = "https://www.google.com";  // Redirecionar para a página inicial
+        }, 10000); // 10000 milissegundos = 10 segundos
 </script>
 </body>
 </html>

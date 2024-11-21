@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="./css/main.css">
     <title>Mensagens Enviadas</title>
 </head>
 <body>
@@ -14,12 +14,11 @@
         <div class="header-content">
             <h1>Rota das Memórias</h1>
             <div class="header-buttons">
-                <!-- Botões de funcionalidades -->
-                <button id="deceased-button" onclick="deceasedResult()">Localização da Campa</button>
-                <button id="condolences-button" onclick="condolencesResult()">Enviar Condolências</button>
-                <button id="cemitery-button" onclick="cemeteryResult()">Localização do Cemitério</button>
+                <button id="deceased-button" onclick="window.location.href = 'deceased-info.html'">Localização da Campa</button>
+                <button id="condolences-button" onclick="window.location.href = 'condolences.html'">Deixar Condolências</button>
+                <button id="cemetery-button" onclick="window.location.href = 'cemetery-info.html'">Localização do Cemitério</button>
                 <button id="newback-button" onclick="window.location.href = 'index.html'">Nova Pesquisa</button>
-                <button onclick="logout()">Sair</button>
+                <button id="logout-button" onclick="window.location.href = 'logout.html'">Sair</button>
             </div>
         </div>
     </header>
@@ -28,50 +27,20 @@
     </main>
     <aside class="container">
         <div id="deceasedInfo" class="result-section">
-            <img id="deceasedPhotoResult" src="" alt="Foto do Falecido" class="result-photo">
-            <br><strong id="deceasedName"></strong>
+            <img id="deceasedPhotoResult" src="../imagens/Pessoa.jpg" alt="Foto do Falecido" class="result-photo">
+            <br><strong id="deceasedName">Nome do Falecido</strong>
         </div>
         <div class="messages-section">
-            <!-- Adicione esta div para exibir as últimas 5 mensagens -->
-            <div id="condolencesMessages" class="messages-container"></div>
-            <!-- As mensagens serão inseridas dinamicamente aqui -->
+            <h2>Últimas Mensagens de Condolências</h2>
+            <div id="condolencesMessages" class="messages-container">
+                <!-- As mensagens serão inseridas dinamicamente aqui -->
+            </div>
         </div>
     </aside>
     <footer>
         <button id="back-button" onclick="window.location.href = 'search.html'">Voltar</button>
     </footer>
-    <script src="../static/javascript/script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            loadMessages();
-        });
-/* Obter o ID do falecido conforme necessário */
-        function loadMessages() {
-            const deceasedId = 
-            fetch(`/api/mensagem/${deceasedId}`)
-                .then(response => response.json())
-                .then(data => {
-                    const deceasedInfo = data.deceasedInfo;
-                    const messages = data.messages;
 
-                    // Atualiza as informações do falecido
-                    document.getElementById('deceasedPhotoResult').src = deceasedInfo.foto || '../imagens/Pessoa.jpg';
-                    document.getElementById('deceasedName').innerText = deceasedInfo.nome;
-
-                    // Atualiza as mensagens de condolências
-                    const messagesContainer = document.getElementById('condolencesMessages');
-                    messagesContainer.innerHTML = ''; // Limpa mensagens anteriores
-                    messages.forEach(message => {
-                        const messageElement = document.createElement('div');
-                        messageElement.className = 'message';
-                        messageElement.innerHTML = `<p><strong>${message.senderName}:</strong> ${message.mensagem}</p>`;
-                        messagesContainer.appendChild(messageElement);
-                    });
-                })
-                .catch(error => {
-                    console.error('Erro ao carregar as mensagens:', error);
-                });
-        }
-    </script>
+    <script src="./javascript/script.js"></script>
 </body>
 </html>

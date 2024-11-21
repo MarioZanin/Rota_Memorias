@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../javascript/script.js">
+    <link rel="stylesheet" href="./css/main.css">
     <title>Envio de Condolências</title>
 </head>
 <body>
@@ -14,54 +14,44 @@
         <div class="header-content">
             <h1>Rota das Memórias</h1>
             <div class="header-buttons">
-                <!-- Botões de funcionalidades -->
-                <button id="deceased-button" onclick="deceasedResult()">Localização da Campa</button>
-                <button id="back-button" onclick="window.location.href = 'messages.html'">Ver Condolência</button>
-                <button id="cemitery-button" onclick="cemeteryResult()">Localização do Cemitério</button> 
-                <button id="newback-button" onclick="window.location.href = 'index.html'">Nova Pesquisa</button>
-                <button onclick="logout()">Sair</button>
+                <button onclick="window.location.href = 'deceased-info.html'">Localização da Campa</button>
+                <button onclick="window.location.href = 'messages.html'">Ver Condolências</button>
+                <button onclick="window.location.href = 'cemetery-info.html'">Localização do Cemitério</button>
+                <button onclick="window.location.href = 'index.html'">Nova Pesquisa</button>
+                <button onclick="window.location.href = 'logout.html'">Sair</button>
             </div>
         </div>
     </header>
+
     <main>
         <h1>Envio de Condolências</h1>
     </main>
+
     <aside class="container">
-        <!-- Exibição da foto do falecido e nome -->
-        <div id="deceasedInfo" class="result-section">
-            <img id="deceasedPhotoResult" src="" alt="Foto do Falecido" class="result-photo">
-            <br><strong id="deceasedNameDisplay"></strong> <br><br>
-            <h3 id="deceasedNameResult" class="result-text"></h3>
+        <div id="search-results">
+            <img id="deceasedPhotoResult" src="" alt="" class="result-image">
+            <div id="deceasedInfo" class="result-section">      
+                <h2 id="deceasedName"><strong></strong></h2>
+            </div>    
+
+        <!-- Espaço para envio de condolências -->
+        <div class="condolence-form">
+            <h2>Envie sua Condolência</h2>
+            <form id="condolencesForm">
+                <label for="senderName">Seu Nome:</label>
+                <input type="text" id="senderName" name="name" required placeholder="*Obrigatório">
+                
+                <label for="condolenceMessage">Mensagem:</label>
+                <textarea id="condolenceMessage" name="message" rows="5" maxlength="300" required placeholder="Escreva sua mensagem..."></textarea>
+                
+                <button type="button" id="sendCondolenceButton">Enviar Condolência</button>
+            </form>
         </div>
-        <!-- Espaço para escrever mensagem de condolências -->
-        <form id="condolences-form">
-            <strong><label for="name">Coloque seu nome:</label></strong>
-            <input type="text" id="senderName" name="name" required placeholder="*Obrigatório ">
-
-            <strong><label for="message">Escreva sua mensagem de condolências:</label></strong>
-            <textarea id="condolencesMessage" name="message" rows="10" cols="80" maxlength="300" required></textarea>            
-            <!-- Botões -->
-            <button type="button" id="send-button" onclick="sendCondolence()">Enviar Condolência</button>
-        </form>
     </aside>
-    <footer>
-        <button id="back-button" onclick="window.location.href = 'search.html'">Voltar</button>
-    </footer>
-    <script src="../static/javascript/script.js"></script>
-    <script>
-        // Função para buscar informações do falecido
-        function fetchDeceasedInfo() {
-            const deceasedId = /* Obter o ID do falecido conforme necessário */
-            fetch(`/api/falecido/${deceasedId}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('deceasedNameDisplay').textContent = data.nome;
-                    document.getElementById('deceasedPhotoResult').src = data.foto;
-                })
-                .catch(error => console.error('Erro:', error));
-        }
 
-        fetchDeceasedInfo();
-    </script>
+    <footer>
+        <button onclick="window.location.href = 'search.html'">Voltar</button>
+    </footer>
+   <script src="./javascript/script.js"></script>
 </body>
 </html>

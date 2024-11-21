@@ -10,4 +10,3 @@ public class RotamemoriasApplication {
 		SpringApplication.run(RotamemoriasApplication.class, args);
 	}
 }
-

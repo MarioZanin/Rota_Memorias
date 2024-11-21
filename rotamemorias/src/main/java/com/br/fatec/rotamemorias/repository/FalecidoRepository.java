@@ -27,18 +27,16 @@ public interface FalecidoRepository extends JpaRepository<Falecido, Long> {
     // Busca falecidos por nome e data de falecimento
     @Query("SELECT f FROM Falecido f WHERE LOWER(f.nome) LIKE LOWER(CONCAT('%', :nome, '%')) AND f.dataFalecimento = :dataFalecimento")
     List<Falecido> findFalecidoByNomeAndDataFalecimento(String nome, LocalDate dataFalecimento);
-    @Query("SELECT f FROM Falecido f " +
-           "LEFT JOIN f.cemiterio c " +  // Join opcional com o cemitério
+
+    // Consulta personalizada com JOIN para buscar falecidos e cemitério
+   @Query("SELECT f FROM Falecido f " +
+           "LEFT JOIN FETCH f.cemiterio c " +
            "WHERE (:nome IS NULL OR LOWER(f.nome) LIKE LOWER(CONCAT('%', :nome, '%'))) " +
            "AND (:nomeCemiterio IS NULL OR LOWER(c.nome) LIKE LOWER(CONCAT('%', :nomeCemiterio, '%'))) " +
            "AND (:dataFalecimento IS NULL OR f.dataFalecimento = :dataFalecimento) " +
            "AND (:nomeMae IS NULL OR LOWER(f.nomeMae) LIKE LOWER(CONCAT('%', :nomeMae, '%')))")
- 
-
-List<Falecido> findByCriteria(@Param("nome") String nome,
-                          @Param("nomeCemiterio") String nomeCemiterio,
-                          @Param("dataFalecimento") Date date,
-                          @Param("nomeMae") String nomeMae);
-
-
+    List<Falecido> findByCriteria(@Param("nome") String nome,
+                                  @Param("nomeCemiterio") String nomeCemiterio,
+                                  @Param("dataFalecimento") Date dataFalecimento,
+                                  @Param("nomeMae") String nomeMae);
 }

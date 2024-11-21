@@ -1,7 +1,9 @@
 package com.br.fatec.rotamemorias.controllers;
 
+import com.br.fatec.rotamemorias.dto.MensagemDTO;
 import com.br.fatec.rotamemorias.dto.SearchDTO;
 import com.br.fatec.rotamemorias.model.Falecido;
+import com.br.fatec.rotamemorias.model.Mensagem;
 import com.br.fatec.rotamemorias.service.FalecidoService;
 import com.br.fatec.rotamemorias.service.FalecidoServiceInterface;
 
@@ -16,9 +18,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.sql.Date;
 import java.util.List;
 
 
@@ -34,11 +38,22 @@ public class FalecidoController implements IController<Falecido> {
 
 
     @GetMapping("/search")
-    @Operation(summary = "Busca falecidos")
-    public ResponseEntity<List<Falecido>> search(@RequestBody SearchDTO searchDTO) {
-        List<Falecido> results = falecidoService.search(searchDTO);
-        return ResponseEntity.ok(results);
-    }
+@Operation(summary = "Busca falecidos")
+public ResponseEntity<List<Falecido>> search(
+    @RequestParam(value = "nome", required = true) String nome,
+    @RequestParam(value = "nomeCemiterio", required = false) String nomeCemiterio,
+    @RequestParam(value = "dataFalecimento", required = false) Date dataFalecimento,
+    @RequestParam(value = "nomeMae", required = false) String nomeMae) {
+
+    SearchDTO searchDTO = new SearchDTO();
+    searchDTO.setNome(nome);
+    searchDTO.setNomeCemiterio(nomeCemiterio);
+    searchDTO.setDataFalecimento(dataFalecimento);
+    searchDTO.setNomeMae(nomeMae);
+
+    List<Falecido> results = falecidoService.search(searchDTO);
+    return ResponseEntity.ok(results);
+}
 
     
     @Override
@@ -48,7 +63,7 @@ public class FalecidoController implements IController<Falecido> {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content(mediaType = "application/json"))
     })
     @Operation(summary = "Retorna a lista dos falecidos", description = "Obtem Lista de Falecidos com todas as informações")
-    public ResponseEntity<List<Falecido>> getAll() {
+    public ResponseEntity getAll() {
         @SuppressWarnings("unchecked")
         List<Falecido> falecidos = (List<Falecido>) ((FalecidoService) falecidoService).findAll();
         return ResponseEntity.ok(falecidos);
@@ -121,5 +136,12 @@ public class FalecidoController implements IController<Falecido> {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+
+    @Override
+    public ResponseEntity<Mensagem> post(@Valid MensagemDTO entity) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'post'");
     }
 }

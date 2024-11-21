@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="./css/main.css">
     <title>Mais Informações</title>
 </head>
 <body>
@@ -14,12 +14,11 @@
         <div class="header-content">
             <h1>Rota das Memórias</h1>
             <div class="header-buttons">
-                <!-- Botões de funcionalidades -->
-                <button id="deceased-button" onclick="deceasedResult()">Localização da Campa</button>
-                <button id="condolences-button" onclick="condolencesResult()">Deixar Condolências</button>
-                <button id="cemitery-button" onclick="cemeteryResult()">Localização do Cemitério</button> 
+                <button id="deceased-button" onclick="window.location.href = 'deceased-info.html'">Localização da Campa</button>
+                <button id="condolences-button" onclick="window.location.href = 'condolences.html'">Deixar Condolências</button>
+                <button id="cemetery-button" onclick="window.location.href = 'cemetery-info.html'">Localização do Cemitério</button> 
                 <button id="back-button" onclick="window.location.href = 'index.html'">Nova Pesquisa</button>
-                <button onclick="logout()">Sair</button>
+                <button id="logout-button" onclick="window.location.href = 'logout.html'">Sair</button>
             </div>
         </div>
     </header>
@@ -36,38 +35,18 @@
             <!-- Contatos disponíveis -->
             <div>
                 <h2>Contatos</h2>
+                
+                <p><strong>Horário de Funcionamento:</strong> <span id="cemeteryFuncionamento"></span></p>
                 <p><strong>Telefone:</strong> <span id="cemeteryPhone"></span></p>
-                <p><strong>WhatsApp:</strong> (XX) XXXX-XXXX</p>
                 <p><strong>Página Oficial:</strong> <span id="cemeteryWebsite"></span></p>
-                <p><strong>Facebook:</strong> www.facebook.com/cemiterio</p>
-                <p><strong>E-mail:</strong> contato@cemiterio.com</p>
+                <p><strong>Localização:</strong> <span id="cemeteryLocalizacao"></span></p>
             </div>
         </div>
     </aside>
     <footer>
         <button id="newback-button" onclick="window.location.href = 'cemetery-info.html'">Voltar</button>
     </footer>
-    <script src="../static/javascript/script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            loadCemeteryInfo();
-        });
-
-        function loadCemeteryInfo() {
-            const cemeteryId = /* Obter o ID do cemitério conforme necessário */
-            fetch(`/api/cemiterio/${cemeteryId}`)
-                .then(response => response.json())
-                .then(data => {
-                    // Atualiza as informações do cemitério
-                    document.getElementById('cemeteryPhotoResult').src = data.foto || '../imagens/PaquetáFrente.jpg';
-                    document.getElementById('cemeteryName').innerText = data.nome;
-                    document.getElementById('cemeteryPhone').innerText = data.telefone;
-                    document.getElementById('cemeteryWebsite').innerText = data.pagina_oficial;
-                })
-                .catch(error => {
-                    console.error('Erro ao carregar as informações do cemitério:', error);
-                });
-        }
-    </script>
+    <script src="./javascript/script.js"></script>
 </body>
 </html>
+

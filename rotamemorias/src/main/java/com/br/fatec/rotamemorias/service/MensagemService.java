@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MensagemService {
@@ -25,32 +24,16 @@ public class MensagemService {
     }
 
     public Mensagem findById(Long id) {
-        Optional<Mensagem> mensagem = mensagemRepository.findById(id);
-        return mensagem.orElse(null);
+        return mensagemRepository.findById(id).orElse(null);
     }
 
     public Mensagem save(Mensagem mensagem) {
+        if (mensagem.getFalecido() == null || mensagem.getFalecido().getId() == null) {
+            throw new IllegalArgumentException("Falecido inválido ou não informado.");
+        }
         return mensagemRepository.save(mensagem);
     }
 
-    public boolean update(Mensagem mensagem) {
-        if (mensagemRepository.existsById(mensagem.getId())) {
-            mensagemRepository.save(mensagem);
-            return true;
-        }
-        return false;
-    }
-
-    public Mensagem updatePartial(Mensagem mensagem) {
-        Optional<Mensagem> existingMensagem = mensagemRepository.findById(mensagem.getId());
-        if (existingMensagem.isPresent()) {
-            Mensagem currentMensagem = existingMensagem.get();
-            // Atualizar campos conforme necessário
-            // Exemplo: currentMensagem.setCampo(mensagem.getCampo());
-            return mensagemRepository.save(currentMensagem);
-        }
-        return null;
-    }
 
     public boolean delete(Long id) {
         if (mensagemRepository.existsById(id)) {
@@ -61,8 +44,6 @@ public class MensagemService {
     }
 
     public List<Mensagem> findByFalecidoId(Long falecidoId) {
-             throw new UnsupportedOperationException("Unimplemented method 'findByFalecidoId'");
+        return mensagemRepository.findByFalecidoId(falecidoId);
     }
-
-    
 }

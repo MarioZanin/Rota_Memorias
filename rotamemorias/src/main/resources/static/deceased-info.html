@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="./css/main.css">
     <title>Informações sobre o Falecido</title>
 </head>
 <body>
@@ -15,11 +15,10 @@
         <div class="header-content">
             <h1>Rota das Memórias</h1>
             <div class="header-buttons">
-                <!-- Botões de funcionalidades -->
-                <button id="condolences-button" onclick="condolencesResult()">Deixar Condolências</button>
-                <button id="back-button" onclick="window.location.href = 'messages.html'">Ver Condolência</button>
-                <button id="cemitery-button" onclick="cemeteryResult()">Localização do Cemitério</button>
-                <button onclick="logout()">Sair</button>
+                <button id="condolences-button" onclick="window.location.href = 'condolences.html'">Deixar Condolências</button>
+                <button id="message-button" onclick="window.location.href = 'messages.html'">Ver Condolência</button>
+                <button id="cemitery-button" onclick="window.location.href = 'cemetery-info.html'">Localização do Cemitério</button>
+                <button id="logout-button" onclick="window.location.href = 'logout.html'">Sair</button>
             </div>
         </div>
     </header>
@@ -28,35 +27,16 @@
     </main>
     <aside class="container">
         <div id="search-results">
-            <!-- Exibição da foto do falecido e nome -->
+            <img id="deceasedPhotoResult" src="" alt="" class="result-image">
             <div id="deceasedInfo" class="result-section">      
                 <h2 id="deceasedName"><strong></strong></h2>
                 <h2><strong>Localização da Campa:</strong> <span id="graveLocation"></span></h2>
             </div>
-            <!-- Informações do falecido-->
-            <img id="deceasedPhotoResult" src="" alt="localização campa" class="result-image">
-            <!-- Informações relevantes sobre o funcionamento do cemitério -->
         </div>
     </aside>
     <footer>
         <button id="back-button" onclick="window.location.href = 'search.html'">Voltar</button>
     </footer>
-    <script src="../static/javascript/script.js"></script>
-    <script>
-        // Função para buscar informações do falecido
-        function fetchDeceasedInfo() {
-            const deceasedId = /* Obter o ID do falecido conforme necessário */
-            fetch(`/api/falecido/${deceasedId}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('deceasedName').textContent = data.nome;
-                    document.getElementById('deceasedPhotoResult').src = data.foto;
-                    document.getElementById('graveLocation').textContent = data.localizacao_sepultura;
-                })
-                .catch(error => console.error('Erro:', error));
-        }
-
-        fetchDeceasedInfo();
-    </script>
+    <script src="./javascript/script.js"></script>
 </body>
 </html>
